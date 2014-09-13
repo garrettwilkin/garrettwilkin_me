@@ -11,7 +11,7 @@ def test():
 
 @task
 def prod():
-    env.remote_dir = '/var/www/'
+    env.remote_dir = '/var/www/garrettwilkin.me'
 
 @task
 def init():
@@ -22,7 +22,7 @@ def init():
 def deploy():
     local("git pull --rebase origin master")
     local("git push origin master")
-    code_dir = env.remote_dir + '/garrettwilkin.me'
+    code_dir = env.remote_dir + '/garrettwilkin_me'
     with cd(code_dir):
         # TODO pull is probably not optimal for deploy. Perhaps fetch?
         # maybe a force option? No need to merge on the remote.
