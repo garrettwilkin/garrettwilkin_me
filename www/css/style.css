@@ -33,3 +33,19 @@ a
 {
   color: #0FE
 }
+
+#avatar
+{
+    background: url('../img/avatar_200.jpeg') no-repeat;
+    background-size: contain;
+}
+
+.circle-200
+{
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+  width: 200px;
+  height: 200px;
+  margin-right: 15px;
+}
