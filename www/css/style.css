@@ -1,0 +1,35 @@
+.table
+{
+  display: table;
+}
+
+.row
+{
+  display: table-row;
+}
+
+.cell
+{
+  display: table-cell;
+}
+
+.subject
+{
+  padding-right: 10px;
+}
+
+body
+{
+  color: #FFF;
+  background-color: #888;
+}
+
+a:visited
+{
+  color: #4F0;
+}
+
+a
+{
+  color: #0FE
+}
