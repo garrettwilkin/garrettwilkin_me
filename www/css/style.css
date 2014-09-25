@@ -1,23 +1,3 @@
-.table
-{
-  display: table;
-}
-
-.row
-{
-  display: table-row;
-}
-
-.cell
-{
-  display: table-cell;
-}
-
-.subject
-{
-  padding-right: 10px;
-}
-
 body
 {
   color: #FFF;
