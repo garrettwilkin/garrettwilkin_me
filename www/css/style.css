@@ -8,6 +8,7 @@ body
 {
   color: rgba(71, 66, 59, 1);
   background-color: rgba(242, 249, 248, 1);
+  font-size: large;
 }
 
 h1
@@ -17,7 +18,8 @@ h1
 
 h2
 {
-  color: rgba(133, 179, 194, 1);
+  color: rgba(17, 113, 134, 1);
+  /*color: rgba(133, 179, 194, 1);*/
 }
 
 a:visited
