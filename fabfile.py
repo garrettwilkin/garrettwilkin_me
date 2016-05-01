@@ -27,4 +27,4 @@ def deploy():
         # TODO pull is probably not optimal for deploy. Perhaps fetch?
         # maybe a force option? No need to merge on the remote.
         run("git pull origin master")
-    
+
