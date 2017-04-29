@@ -45,7 +45,7 @@ working in such an antiquated niche language, TCL. There were attempts by a few 
  even just for supporting scripts and utilities, but this effort was met with solid resistance. Once, I even produced
   a report describing the benefits I thought Fidessa could realize by developing a REST HTTP/JSON API. But the report
    I delivered went to a manager who didn't have an incentive to consider my suggestion, and didn't have the
-   authority to develop something like that which would have been such a departure from what we were doing at the time.
+    authority to develop something like that which would have been such a departure from what we were doing at the time.
 
 
 ### What was it like to work as part of a financial services software development company?
