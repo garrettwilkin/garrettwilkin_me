@@ -36,3 +36,29 @@
 - Handles technical discussion of product features and implemenation
   options with external parties which could include product teams in
   other regions, vendors, or core developers.
+
+
+# Documenting changes and communicating in a large organization.
+
+Perhaps the hardest part of building software is deciding what to build
+and how to build it. Of course this have been discussed before here &
+here. I've experienced the need for leaving a trail of data and
+decisions in multiple circumstances. In each scenario, it eventually
+becomes important to understand why code was written.
+
+- What were the assumptions made by the person writing the code?
+- What effect were they trying to achieve?
+- What was the business reason behind making the code change?
+
+Without knowing the answers to those questions, it becomes very hard to
+know with certainty whether or not the code is still relevant.
+
+## Couldn't you know whether code is important simply by how obscure it is?
+
+Surely, if code is tucked away in some branch of the code base that is
+hard to reach (logically), then it cannot be very important can it?
+
+Yes! Yes, it could be very important! It's actually very hard to know
+whether or not code is needed simply be trying to imagine the way in
+which it might be used. Very often, bugs come out of unexpected
+conditions in the production environment.
