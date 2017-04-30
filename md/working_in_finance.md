@@ -1,4 +1,4 @@
-### What was it like to work as part of a financial services software development company?
+# What was it like to work as part of a financial services software development company?
 
  Initially I worked a financial software company called Fidessa. This was
  a highly coordinated organization with hundreds of people in a single
