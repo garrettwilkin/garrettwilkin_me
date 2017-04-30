@@ -1,14 +1,16 @@
-### Tell me about a time when you encouraged the adoption of a new tool to a set of users?
+# Tell me about a time when you encouraged the adoption of a new tool
+to a set of users?
 
 When I arrived at the BDN, there were a few things that stood out to me
-as ready for change.  To put this in context, working  at the BDN would
-be my third full time position since graduating with my Computer Science
-degree. The bulk of my professional life to this point remains the financial
-industry of Manhattan. Our conservative company culture still allowed for
-fairly rapid adoption of certain technologies. Particularly in the form of
-communication. Fidessa was right there with the rest of the corporate
-world at the height of the blackberry corporate phone market dominance,
- just prior to the release of the iPhone (iOS) & Android platforms.
+as ready for change. To put this in context, working at the BDN would be
+my third full time position since graduating with my Computer Science
+degree. The bulk of my professional life to this point remains the
+financial industry of Manhattan. Our conservative company culture still
+allowed for fairly rapid adoption of certain technologies. Particularly
+in the form of communication. Fidessa was right there with the rest of
+the corporate world at the height of the blackberry corporate phone
+market dominance, just prior to the release of the iPhone (iOS) &
+Android platforms.
 
 Before we had internal instant messenging in the form of some microsoft product whose name I forget, we used yahoo
 messenger almost exclusively and unofficially. Once the internal instant messaging app landed, we could have
