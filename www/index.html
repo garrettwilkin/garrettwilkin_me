@@ -286,10 +286,14 @@
 
     <p>
       Here's a chart of a bit of custom metrics monitoring I configured for the WordPress REST api, which we run in
-      production at the bangordailynews.com.
+      production at bangordailynews.com.
     </p>
     <figure>
       <img src="https://s3.us-east-1.amazonaws.com/garrettwilkin.me/img/aws_cloudwatch_wordpress_rest_api.jpg">
+      <figcaption>
+        Our Lambda function activity, represented in the rest-api-python-ua-requests series, is the single largest
+        source of WordPress REST API traffic.
+      </figcaption>
     </figure>
     <p>
       The WordPress REST API officially landed in v4.6. Version v4.8 has been released and received a maintenance patch, but its still a relatively lightly used feature of WordPress content syndication compared to the amount of traffic that we see from bots consuming HTML or RSS. We are still the most active consumers of our own API.
@@ -304,19 +308,24 @@
     <figure>
       <img src="http://s3.us-east-1.amazonaws.com/garrettwilkin.me/img/aws_cloudwatch_wordpress_rds_cpu.png">
       <figcaption>Aurora RDS cluster showing several weeks of CPU utilization over 100% at peak from
-        initial Lambda deployment on June 29th until July 30th.</figcaption>
+        initial Lambda deployment on June 29th until reducing frequency of scheduled invocation from 5 to 10 minutes on
+        July 30th.</figcaption>
     </figure>
     <p>
-      After admitting that it really was likely the lamdba functions that were causing this increase CPU Utilization, the simplest possible way to reduce utilization over all would simply be to run the functions less frequently. At initial deployment we had two lambda functions running on an &quot;every five minutes&quot; schedule. The function for handling realtime performance metrics would only every update around 30 posts in WordPress, but the function for processing historical metrics would update as many as 100 posts per run. This is simply because there are more unique URLs with significant traffic over a longer time period.
+      After admitting that it really was likely that the lamdba functions were causing this increased CPU Utilization, the simplest possible way to reduce utilization over all would simply be to run the functions less frequently. The function for handling real time performance metrics would only update around 30 posts in WordPress per invocation, but the function for processing historical metrics would update as many as 100 posts per run. This is simply because there are more unique URLs with significant traffic over a longer time period.
     </p>
      <p>
-       The historical function actually tool between 200 and 300 seconds to execute at each invocation, primarily due to the synchronous method in which it executes its HTTP requests. Since each transaction takes between 1-2 seconds on average, and the function has just over 100 API calls to make, it's easy to run into an execution time lasting 4&plus; minutes.
+       The historical function actually took between 200 and 300 seconds to execute at each invocation, primarily due to the synchronous method in which it executes its HTTP requests. Since each transaction takes between 1-2 seconds on average, and the function has just over 100 API calls to make, it's easy to run into an execution time lasting 4&plus; minutes.
        </p>
     <p>
- This seems ludicrous when you consider the'quick, cheap, infrequent' use case scenario that lambda is meant to serve. In our case, the incentive to further optimize the performance of this script is low fornow. 4-5 minutes out of every 10 minutes is still hardly 50% utiliation, and the 128MB container size is amplesince the script only ever consumes ~30MB while running.
+      So we went into the AWS lambda console to the configuration details for the longer running historical lambda
+      function, detached the Cloudwatch trigger on an &quot;every five minutes&quot; schedule from the historical function, and enabled a new &quot;every ten minutes&quot; trigger. Just like that, our peak CPU
+      Utilization in the RDS cluster returned to a tolerable range.
     </p>
     <p>
-      Why does it take between 200-300 seconds to execute? The script is mostly network bound. It must process 102 WordPress post update transactions and every transaction takes about 2 seconds. Even with this long runtime, scheduling the function to run every 10 minutes uses only about a third of the Lambda free tier allotment.
+ A runtime duration of several minutes may seem ludicrous when you consider the 'quick, cheap, infrequent' use case scenario that lambda is meant to serve.  But in our case, the incentive to further optimize the performance of this script is low for now. Running for 4-5 minutes out of every 10 minutes is still hardly 50% utilization, and the 128MB container size is ample, since the script only ever consumes ~30MB while running.
+    </p>
+ Even with this long runtime, scheduling the function to run every 10 minutes uses only about a third of the Lambda free tier allotment.
     </p>
 </div>
 </body>
