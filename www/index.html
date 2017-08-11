@@ -74,6 +74,13 @@
     text-align: center;
     font-style: italic;
   }
+
+    .figure
+    {
+      width: auto;
+      max-width: 750px;
+      margin-left: 0px;
+    }
 </style>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 </head>
@@ -117,9 +124,9 @@
     </li>
   </ul>
 
-<h2>Most Recent Project</h2>
+<h2>Projects</h2>
 
-<h3>Web System Migration</h3>
+<h3>AWS Migration - September 2016</h3>
 
 <ul>
   <li>I recommended, planned, and executed a complete migration into Amazon Web Services of all web serving systems in use by the Bangor Publishing Company.</li>
@@ -153,7 +160,7 @@
   <ul>
     <li>Python - flask, django, etc.</li>
     <li>Javascript - node.js server side or in the browser.</li>
-    <li>AWS - hosting.</li>
+    <li>Amazon Web Services.</li>
     <li>ansible - for repeatable deployment and configuration.</li>
     <li>AWS Cloudwatch or statsd + graphite - for monitoring.
     <li>git - for version control</li>
@@ -184,6 +191,12 @@
   </ul>
 
   <h2>Conferences</h2>
+
+    <p>It is really important to me to participate in the wider technical community. I just enjoy being around
+      people that are passionate about building things because we help to inspire each others curiousity. I've
+      been fortunate enough to be able to attend many conferences over the years, to have organized a few myself,
+      and to have presented at a few as a speaker myself.</p>
+
   <ul>
       <li>2016 Sep - ONA16 - Online News Association&#8217;s annual gathering.</li>
       <ul>
@@ -237,17 +250,74 @@
 
   <h2>Infrequently Asked Questions</h2>
 
-  <h3>If you could have one super power (and only one), which one would you choose?</h3>
+  <h3>
+    If you could have one super power (and only one), which one would you choose?
+  </h3>
 
-  <p>If I could have one and only one super power, it would be the ability to wield stone through telekenesis. Stone is a long term material.
-    It is sturdy and will stand the test of time. I seek to create a lasting postive effect on the world, and that's why this super power appeals to me. Which one would you choose?</p>
+  <p>
+    If I could have one and only one super power, it would be the ability to wield stone through telekenesis. Stone is a long term material.It is sturdy and will stand the test of time. I seek to create a lasting postive effect on the world, and that's why this super power appeals to me. Which one would you choose?
+  </p>
 
   <h3>Tell me about a time when you encouraged the adoption of a new tool to a set of users?</h3>
 
-    <p>When I arrived at the BDN, there were a few things that stood out to me as ready for change. To put this in context, working at the BDN would be my third full time position since graduating with my Computer Science degree. Initially I worked
+    <p>
+      I lead the adoption of DevOps culture at the Bangor Daily News.
+    </p>
+    <p>
+      The essential tools and processes we adopted include:
     </p>
 
+    <ul>
+      <li>
+        Storing configuration in source control (GitHub).
+      </li>
+      <li>
+        Repeatable deployments through ansible playbooks.
+      </li>
+      <li>
+        Multi-stage development and deployment environments: (development, staging, performance, and production).
+      </li>
+      <li>
+        Monitoring resource utilization, specifically on web serving and database instances.
+      </li>
+    </ul>
 
+    <h3>How about some charts?</h3>
+
+    <p>
+      Here's a chart of a bit of custom metrics monitoring I configured for the WordPress REST api, which we run in
+      production at the bangordailynews.com.
+    </p>
+    <figure>
+      <img src="https://s3.us-east-1.amazonaws.com/garrettwilkin.me/img/aws_cloudwatch_wordpress_rest_api.jpg">
+    </figure>
+    <p>
+      The WordPress REST API officially landed in v4.6. Version v4.8 has been released and received a maintenance patch, but its still a relatively lightly used feature of WordPress content syndication compared to the amount of traffic that we see from bots consuming HTML or RSS. We are still the most active consumers of our own API.
+    </p>
+
+    <p>
+      Our primary use case for the WordPress REST API is to ingest analytics data.  We recently launched two AWS lambda functions that poll Google Analytics 360 for both realtime and historical metrics. The metrics are joined our content (WordPress posts) using the path portion of the URL. Once we've determined which metrics match to which WordPress post, we can then update the post with that metrics data.
+    </p>
+    <p>
+      Shortly after launching these functions we noticed a marked increase in CPU utilization in our Aurora RDS cluster.
+    </p>
+    <figure>
+      <img src="http://s3.us-east-1.amazonaws.com/garrettwilkin.me/img/aws_cloudwatch_wordpress_rds_cpu.png">
+      <figcaption>Aurora RDS cluster showing several weeks of CPU utilization over 100% at peak from
+        initial Lambda deployment on June 29th until July 30th.</figcaption>
+    </figure>
+    <p>
+      After admitting that it really was likely the lamdba functions that were causing this increase CPU Utilization, the simplest possible way to reduce utilization over all would simply be to run the functions less frequently. At initial deployment we had two lambda functions running on an &quot;every five minutes&quot; schedule. The function for handling realtime performance metrics would only every update around 30 posts in WordPress, but the function for processing historical metrics would update as many as 100 posts per run. This is simply because there are more unique URLs with significant traffic over a longer time period.
+    </p>
+     <p>
+       The historical function actually tool between 200 and 300 seconds to execute at each invocation, primarily due to the synchronous method in which it executes its HTTP requests. Since each transaction takes between 1-2 seconds on average, and the function has just over 100 API calls to make, it's easy to run into an execution time lasting 4&plus; minutes.
+       </p>
+    <p
+ This seems ludicrous when you consider the'quick, cheap, infrequent' use case scenario that lambda is meant to serve. In our case, the incentive to further optimize the performance of this script is low fornow. 4-5 minutes out of every 10 minutes is still hardly 50% utiliation, and the 128MB container size is amplesince the script only ever consumes ~30MB while running.
+    </p>
+    <p>
+      Why does it take between 200-300 seconds to execute? The script is mostly network bound. It must process 102 WordPress post update transactions and every transaction takes about 2 seconds. Even with this long runtime, scheduling the function to run every 10 minutes uses only about a third of the Lambda free tier allotment.
+    </p>
 </div>
 </body>
 </html>

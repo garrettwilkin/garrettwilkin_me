@@ -25,11 +25,10 @@
   - Coordinates a team of up to eight, comprised of up to 3 team leads,
     each having up to three individual contributors
 
-
 # Technical oversight and leadership (technical architecture, TA)
 
 - Responsible for specifying new system components, or significant
-  changes existing componennts
+  changes in existing componennts
 - Technical architects (TA) operate in a heirarchy removed from the ICs.
 - TAs provide essential input and support to the work implemented by
   ICs.
@@ -47,11 +46,16 @@ decisions in multiple circumstances. In each scenario, it eventually
 becomes important to understand why code was written.
 
 - What were the assumptions made by the person writing the code?
-- What effect were they trying to achieve?
+- What goal were they trying to attain?
 - What was the business reason behind making the code change?
 
 Without knowing the answers to those questions, it becomes very hard to
 know with certainty whether or not the code is still relevant.
+
+Another point I've noticed is that code often lives for much longer than
+the implementer expects it to. Thoughts of "I can come back and improve
+this later" will very rarely be realized. I've seen this in large
+organizations and small teams.
 
 ## Couldn't you know whether code is important simply by how obscure it is?
 
