@@ -312,7 +312,7 @@
      <p>
        The historical function actually tool between 200 and 300 seconds to execute at each invocation, primarily due to the synchronous method in which it executes its HTTP requests. Since each transaction takes between 1-2 seconds on average, and the function has just over 100 API calls to make, it's easy to run into an execution time lasting 4&plus; minutes.
        </p>
-    <p
+    <p>
  This seems ludicrous when you consider the'quick, cheap, infrequent' use case scenario that lambda is meant to serve. In our case, the incentive to further optimize the performance of this script is low fornow. 4-5 minutes out of every 10 minutes is still hardly 50% utiliation, and the 128MB container size is amplesince the script only ever consumes ~30MB while running.
     </p>
     <p>
