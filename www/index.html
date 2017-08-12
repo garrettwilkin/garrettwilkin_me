@@ -77,11 +77,36 @@
     font-style: italic;
   }
 
-  .figure
+
+  @media (max-width: 1200px) {
+    img {
+      max-width: 800px;
+    }
+  }
+
+
+  @media (max-width: 900px) {
+    img {
+      max-width: 550px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    img {
+      max-width: 480px;
+    }
+  }
+
+
+  @media (max-width: 400px) {
+    img {
+      max-width: 280px;
+    }
+  }
+
+  img
   {
-    width: auto;
-    max-width: 750px;
-    margin-left: 0px;
+    margin: auto;
   }
 
 </style>
@@ -183,16 +208,6 @@
   <p>I love the freedom to live where I choose, and have seen the efficiencies that the remote collaboration workflow can bring.</p>
   <p>I learned from experience that working remotely works better for me when I work from an office that is not also my home.</p>
 
-  <h2>Contact</h2>
-  <p>Drop me a line, I'd love to hear from you.</p>
-  <ul>
-    <li>twitter - <a href="http://twitter.com/garrettwilkin">garrettwilkin</a></li>
-    <li>email - <a href="mailto:garrett.wilkin@gmail.com">garrett.wilkin@gmail.com</a></li>
-    <li>github - <a href="http://github.com/garrettwilkin">garrettwilkin</a></li>
-    <li>linkedin - <a href="https://www.linkedin.com/pub/garrett-wilkin/7/327/7aa">Garrett Wilkin</a></li>
-    <li>resume - <a href="https://s3.us-east-2.amazonaws.com/garrett-wilkin-2017/GarettWilkin_LeadDeveloper.pdf">GarrettWilkin - Lead Developer - 2017</a></li>
-  </ul>
-
   <h2>Conferences</h2>
 
     <p>It is really important to me to participate in the wider technical community. I just enjoy being around
@@ -284,20 +299,16 @@
         Monitoring resource utilization, specifically on web serving and database instances.
       </li>
     </ul>
-
     <h3>How about some charts?</h3>
-
     <p>
       Here's a chart of a bit of custom metrics monitoring I configured for the WordPress REST api, which we run in
       production at bangordailynews.com.
     </p>
-    <figure>
-      <img src="https://s3.us-east-1.amazonaws.com/garrettwilkin.me/img/aws_cloudwatch_wordpress_rest_api.jpg">
-      <figcaption>
-        Our Lambda function activity, represented in the rest-api-python-ua-requests series, is the single largest
-        source of WordPress REST API traffic.
-      </figcaption>
-    </figure>
+    <img src="img/aws_cloudwatch_wordpress_rest_api.jpg">
+    <p>
+      Our Lambda function activity, represented in the rest-api-python-ua-requests series, is the single largest
+      source of WordPress REST API traffic.
+    </p>
     <p>
       The WordPress REST API officially landed in v4.6. Version v4.8 has been released and received a maintenance patch, but its still a relatively lightly used feature of WordPress content syndication compared to the amount of traffic that we see from bots consuming HTML or RSS. We are still the most active consumers of our own API.
     </p>
@@ -308,12 +319,7 @@
     <p>
       Shortly after launching these lambda functions we noticed a marked increase in CPU utilization in our Aurora RDS cluster.
     </p>
-    <figure>
-      <img src="http://s3.us-east-1.amazonaws.com/garrettwilkin.me/img/aws_cloudwatch_wordpress_rds_cpu.png">
-      <figcaption>Aurora RDS cluster showing several weeks of CPU utilization over 100% at peak from
-        initial Lambda deployment on June 29th until reducing frequency of scheduled invocation from 5 to 10 minutes on
-        July 30th.</figcaption>
-    </figure>
+    <img src="img/cloudwatch_wordpress_api_rds_cpu.png" alt="Cloudwatch chart showing high CPU utilization">
     <p>
       After admitting that it really was likely that the lamdba functions were causing this increased CPU Utilization, the simplest possible way to reduce utilization over all would simply be to run the functions less frequently. The function for handling real time performance metrics would only update around 30 posts in WordPress per invocation, but the function for processing historical metrics would update as many as 100 posts per run. This is simply because there are more unique URLs with significant traffic over a longer time period.
     </p>
@@ -330,6 +336,17 @@
     </p>
  Even with this long runtime, scheduling the function to run every 10 minutes uses only about a third of the Lambda free tier allotment.
     </p>
+
+
+  <h2>Contact</h2>
+  <p>Drop me a line, I'd love to hear from you.</p>
+  <ul>
+    <li>twitter - <a href="http://twitter.com/garrettwilkin">garrettwilkin</a></li>
+    <li>email - <a href="mailto:garrett.wilkin@gmail.com">garrett.wilkin@gmail.com</a></li>
+    <li>github - <a href="http://github.com/garrettwilkin">garrettwilkin</a></li>
+    <li>linkedin - <a href="https://www.linkedin.com/pub/garrett-wilkin/7/327/7aa">Garrett Wilkin</a></li>
+    <li>resume - <a href="https://s3.us-east-2.amazonaws.com/garrett-wilkin-2017/GarettWilkin_LeadDeveloper.pdf">GarrettWilkin - Lead Developer - 2017</a></li>
+  </ul>
 </div>
 </body>
 </html>
