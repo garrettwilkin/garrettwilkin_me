@@ -5,6 +5,7 @@
   <script async src="https://cdn.ampproject.org/v0.js"></script>
   <title> Garrett Wilkin</title>
   <link rel="canonical" href="http://garrettwilkin.me/" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
   <script type="application/ld+json">
     {
@@ -36,6 +37,7 @@
     color: rgba(71, 66, 59, 1);
     background-color: rgba(255, 255, 255, 1);
     font-size: large;
+    font-family: 'Open Sans', sans-serif;
   }
 
   h1
@@ -75,12 +77,13 @@
     font-style: italic;
   }
 
-    .figure
-    {
-      width: auto;
-      max-width: 750px;
-      margin-left: 0px;
-    }
+  .figure
+  {
+    width: auto;
+    max-width: 750px;
+    margin-left: 0px;
+  }
+
 </style>
   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 </head>
@@ -300,10 +303,10 @@
     </p>
 
     <p>
-      Our primary use case for the WordPress REST API is to ingest analytics data.  We recently launched two AWS lambda functions that poll Google Analytics 360 for both realtime and historical metrics. The metrics are joined our content (WordPress posts) using the path portion of the URL. Once we've determined which metrics match to which WordPress post, we can then update the post with that metrics data.
+      Our primary use case for the WordPress REST API is to ingest analytics data.  We recently launched two AWS lambda functions that poll Google Analytics 360 for both realtime and historical metrics. The metrics are joined to our articles (WordPress posts) using the path portion of the URL. Once we've determined which metrics match to which WordPress post, we can then update the post with that metrics data.
     </p>
     <p>
-      Shortly after launching these functions we noticed a marked increase in CPU utilization in our Aurora RDS cluster.
+      Shortly after launching these lambda functions we noticed a marked increase in CPU utilization in our Aurora RDS cluster.
     </p>
     <figure>
       <img src="http://s3.us-east-1.amazonaws.com/garrettwilkin.me/img/aws_cloudwatch_wordpress_rds_cpu.png">
